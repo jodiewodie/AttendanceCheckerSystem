@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AttendanceCheckerSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+    @foreach (var s in Model)
+    {
+        if (s.Absent == 0 && s.Present > 0)
+        {
+            float studentperformance = s.Present / (s.Absent + s.Present);
+            ViewData["StudentPerformance"] = studentperformance.ToString();
+        }
+        else {
+            float studentperformance = 0;
+            ViewData["StudentPerformance"] = studentperformance.ToString() + "%";
+        }
+    }
+    }
+<div>
+    <h4>Student Performance Summary</h4>
+    <hr />
+    <ol class="enrolled">
+        @foreach (var s in Model)
+        {
+            <li>
+                <span class="studentLink">
+                    <span class="mattendee">@s.ID</span>
+                    @s.FirstName, @s.LastName
+                    <img src="@s.Photo" width="100" alt="photo of @s.FirstName @s.LastName" class="studentPhoto" />
+                    <span class="attendanceNotation">@ViewData["StudentPerformance"]</span>
+                </span>
+            </li>
+        }
+    </ol>
+</div>
+<div>
+    <a asp-action="/Home/Index">Back to List</a>
+</div>
+
+@*<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Present)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Absent)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Present)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Absent)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@
